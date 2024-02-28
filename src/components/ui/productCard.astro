@@ -13,7 +13,7 @@ const {class: className, product } = Astro.props;
 
 <a href=`/${product.categories[0].slug}/${product.slug}` class={"product-card flex flex-col bg-white shadow rounded-xl overflow-hidden dark:bg-gray-800 dark:border-gray-700 " + className || ''}>
     <picture  class="flex rounded-xl rounded-b-none overflow-hidden">
-        <img transition:name=`${product.slug}` src={UPLOADS_URL + product.images[0]?.file} alt="product image">
+        <img width="435" height="326" transition:name=`${product.slug}` src={UPLOADS_URL + product.images[0]?.file} alt={"Imagen del producto " + product.name}>
     </picture>
     <div class="px-5 pb-5 pt-5 flex-auto flex flex-col justify-between">
         <div>
