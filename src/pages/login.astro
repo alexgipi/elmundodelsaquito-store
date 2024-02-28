@@ -43,7 +43,7 @@ if (Astro.request.method === "POST") {
             token
         }
 
-        Astro.cookies.set("identity", JSON.stringify(identity))
+        Astro.cookies.set("identity", JSON.stringify(identity), { secure: true })
         
     }else {
       errors.invalidLogin = true;
