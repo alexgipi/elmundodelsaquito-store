@@ -1,0 +1,259 @@
+{
+	"version": 3,
+	"routes": [
+		{
+			"src": "/404/",
+			"headers": {
+				"Location": "/404"
+			},
+			"status": 308
+		},
+		{
+			"src": "/aviso-legal/",
+			"headers": {
+				"Location": "/aviso-legal"
+			},
+			"status": 308
+		},
+		{
+			"src": "/encuentranos-en-ferias/",
+			"headers": {
+				"Location": "/encuentranos-en-ferias"
+			},
+			"status": 308
+		},
+		{
+			"src": "/finalizar-compra/pedido-recibido/",
+			"headers": {
+				"Location": "/finalizar-compra/pedido-recibido"
+			},
+			"status": 308
+		},
+		{
+			"src": "/finalizar-compra/",
+			"headers": {
+				"Location": "/finalizar-compra"
+			},
+			"status": 308
+		},
+		{
+			"src": "/login/",
+			"headers": {
+				"Location": "/login"
+			},
+			"status": 308
+		},
+		{
+			"src": "/logout/",
+			"headers": {
+				"Location": "/logout"
+			},
+			"status": 308
+		},
+		{
+			"src": "/mi-cuenta/detalles/",
+			"headers": {
+				"Location": "/mi-cuenta/detalles"
+			},
+			"status": 308
+		},
+		{
+			"src": "/mi-cuenta/direcciones/",
+			"headers": {
+				"Location": "/mi-cuenta/direcciones"
+			},
+			"status": 308
+		},
+		{
+			"src": "/mi-cuenta/metodos-de-pago/",
+			"headers": {
+				"Location": "/mi-cuenta/metodos-de-pago"
+			},
+			"status": 308
+		},
+		{
+			"src": "/mi-cuenta/pedidos/([^/]+?)/",
+			"headers": {
+				"Location": "/mi-cuenta/pedidos/$1"
+			},
+			"status": 308
+		},
+		{
+			"src": "/mi-cuenta/pedidos/",
+			"headers": {
+				"Location": "/mi-cuenta/pedidos"
+			},
+			"status": 308
+		},
+		{
+			"src": "/mi-cuenta/",
+			"headers": {
+				"Location": "/mi-cuenta"
+			},
+			"status": 308
+		},
+		{
+			"src": "/politica-de-cookies/",
+			"headers": {
+				"Location": "/politica-de-cookies"
+			},
+			"status": 308
+		},
+		{
+			"src": "/politica-de-privacidad/",
+			"headers": {
+				"Location": "/politica-de-privacidad"
+			},
+			"status": 308
+		},
+		{
+			"src": "/quienes-somos/",
+			"headers": {
+				"Location": "/quienes-somos"
+			},
+			"status": 308
+		},
+		{
+			"src": "/registro/",
+			"headers": {
+				"Location": "/registro"
+			},
+			"status": 308
+		},
+		{
+			"src": "/reset-password/complete/",
+			"headers": {
+				"Location": "/reset-password/complete"
+			},
+			"status": 308
+		},
+		{
+			"src": "/reset-password/",
+			"headers": {
+				"Location": "/reset-password"
+			},
+			"status": 308
+		},
+		{
+			"src": "/([^/]+?)/([^/]+?)/",
+			"headers": {
+				"Location": "/$1/$2"
+			},
+			"status": 308
+		},
+		{
+			"src": "/([^/]+?)/",
+			"headers": {
+				"Location": "/$1"
+			},
+			"status": 308
+		},
+		{
+			"src": "^/_astro/(.*)$",
+			"headers": {
+				"cache-control": "public, max-age=31536000, immutable"
+			},
+			"continue": true
+		},
+		{
+			"handle": "filesystem"
+		},
+		{
+			"src": "^\\/_image$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/404$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/aviso-legal$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/encuentranos-en-ferias$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/finalizar-compra\\/pedido-recibido$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/finalizar-compra$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/login$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/logout$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/mi-cuenta\\/detalles$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/mi-cuenta\\/direcciones$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/mi-cuenta\\/metodos-de-pago$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/mi-cuenta\\/pedidos\\/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/mi-cuenta\\/pedidos$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/mi-cuenta$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/politica-de-cookies$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/politica-de-privacidad$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/quienes-somos$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/registro$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/reset-password\\/complete$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/reset-password$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/([^/]+?)\\/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/([^/]+?)$",
+			"dest": "_render"
+		},
+		{
+			"src": "^\\/$",
+			"dest": "_render"
+		},
+		{
+			"src": "/.*",
+			"dest": "_render",
+			"status": 404
+		}
+	]
+}
