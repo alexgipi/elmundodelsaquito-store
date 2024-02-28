@@ -3,9 +3,7 @@ export const prerender = false;
 import Dropdown from './ui/Dropdown.astro';
 import ToggleCart from './ToggleCart.svelte';
 import AdminToolbar from './AdminToolbar.astro';
-import CheckoutModal from './CheckoutModal.svelte'
-import StoreMessage from './StoreMessage.svelte'
-import { API_URL } from '../services/ecommerce';
+import { API_URL, UPLOADS_URL } from '../services/ecommerce';
 const pathname = new URL(Astro.request.url).pathname;
 const currentPath = pathname.slice(1); // remove the first "/"
 
@@ -51,22 +49,13 @@ async function getMainNav(){
   <div class="container">
     <a href="/">
       <img
-        width="149"
-        height="56"
-        src="https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito.webp"
+        width="170"
+        height="63"
+        src={UPLOADS_URL + 'logo-elmundodelsaquito.webp'}
         class="header-logo"
         alt="Logo de El mundo del saquito"
         decoding="async"
         fetchpriority="high"
-        srcset="
-            https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito.png          1958w,
-            https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito-300x113.png   300w,
-            https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito-1024x385.png 1024w,
-            https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito-768x289.png   768w,
-            https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito-1536x577.png 1536w,
-            https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/logo-elmundodelsaquito-416x156.png   416w
-          "
-        sizes="(max-width: 1958px) 100vw, 1958px"
       />
     </a>
     
