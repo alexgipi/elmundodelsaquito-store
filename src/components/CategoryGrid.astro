@@ -21,7 +21,7 @@ async function categoryProductsCount(categorySlug:string){
 
 <div class="category-grid">
   {
-    categories.length === 4 && categories.map((category: any) => (
+    categories.length > 0 && categories.map((category: any) => (
       <a
         href={'/' + category.slug}
         class="card category-card hover-img-brightness hover-img-rotate"
