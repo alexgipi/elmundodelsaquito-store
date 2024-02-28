@@ -1,0 +1,53 @@
+---
+import { UPLOADS_URL, getCategories, getCategoryProducts } from "../services/ecommerce";
+
+interface Props {
+  objectFit?: string;
+}
+
+const { objectFit } = Astro.props;
+
+const categories = await getCategories();
+
+categories.forEach((category:any) => {
+  category.totalProducts = categoryProductsCount(category.slug);
+});
+
+async function categoryProductsCount(categorySlug:string){
+  const catProducts = (await getCategoryProducts(categorySlug)) || []
+  return catProducts.length;
+}
+---
+
+<div class="category-grid">
+  {
+    categories.length === 4 && categories.map((category: any) => (
+      <a
+        href={'/' + category.slug}
+        class="card category-card hover-img-brightness hover-img-rotate"
+        id={'cat-'+category.slug}
+        style="background:#eee;"
+      >
+        <picture class="with-gradient">
+          <img
+            width="302"
+            height="408"
+            class={objectFit || "object-fit-contain"}
+            alt={category.name}
+            src={UPLOADS_URL + 'thumbnail/' + category.images[0]?.file}
+          />
+        </picture>
+
+        <div class="card-body">
+          <h4 class="card-title text-align-center">{category.name}</h4>
+
+          <span class="card-subtitle text-align-center color-white text-sm font-weight-semibold mb-0">
+            Ver {category.totalProducts} productos &gt;
+          </span>
+        </div>
+      </a>
+    ))
+  }
+</div>
+
+<style></style>

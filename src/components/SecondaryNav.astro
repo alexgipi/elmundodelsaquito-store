@@ -1,0 +1,79 @@
+---
+const currentUrl = Astro.url;
+const pages = [
+  {
+    pathname: "/mi-cuenta",
+    name: "Escritorio"
+  },
+  {
+    pathname: "/mi-cuenta/pedidos",
+    name: "Mis pedidos"
+  },
+  {
+    pathname: "/mi-cuenta/direcciones",
+    name: "Direcciones"
+  },
+  {
+    pathname: "/mi-cuenta/metodos-de-pago",
+    name: "Métodos de pago"
+  },
+  {
+    pathname: "/mi-cuenta/detalles",
+    name: "Detalles de mi cuenta"
+  }
+]
+---
+
+<nav class="secondary-nav">
+    {
+      pages.map((page) => (
+        <li>
+          <a 
+          href={page.pathname}
+          class={currentUrl.pathname === page.pathname ? 'active' : ''}
+          >
+            {page.name}
+          </a>
+        </li>
+      ))
+    }
+</nav>
+
+<style is:global>
+    .secondary-nav {
+      padding: 10px 0;
+      border-radius: 10px;
+      flex: auto;
+      width: 100%;
+      display: flex;
+      gap: 30px;
+    }
+  
+    .secondary-nav li {
+      display: flex;
+      list-style: none;
+    }
+  
+    .secondary-nav li a {
+      width: 100%;
+      color: #5f5f5f;
+      position: relative;
+      font-size: 0.94em;
+    }
+
+    .secondary-nav li a.active {
+      color: var(--primary-color);
+      font-weight: 600;
+    }
+
+    .secondary-nav li a.active::before {
+      content: "";
+      width: 30%;
+      height: 4px;
+      background: var(--primary-color);
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      border-radius: 8px;
+    }
+</style>

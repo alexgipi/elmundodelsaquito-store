@@ -1,0 +1,214 @@
+---
+// export const prerender = true;
+import Layout from "../../layouts/Layout.astro";
+import Gallery from "../../components/Gallery.astro";
+
+import { formatCurrency } from "../../utils.ts";
+import { getProudct } from "../../services/ecommerce";
+import Purchase from "../../components/Purchase.svelte";
+
+const { product: productSlug } = Astro.params;
+const product:any = await getProudct(productSlug);
+---
+
+<Layout title={product?.name}>
+  <main>
+    <div class="container flex-dir-column">
+      <section class="product-overview">
+        <Gallery product={product} />
+
+        <div class="product-details">
+          <h1 class="product-title">{product?.name}</h1>
+
+          <span class="product-price">
+            {formatCurrency(product?.price || 0)}</span
+          >
+
+          <div
+            set:html={product?.short_description}
+            class="product-short-description"
+          />
+
+          <Purchase product={product} client:load></Purchase>
+          <!-- <PurchaseProduct product={product} client:visible /> -->
+        </div>
+      </section>
+
+      <div class="product-meta">
+        <div class="meta-item">
+          <strong>Categoría:</strong>
+          {product?.categories?.map((category:any, index: number) => (
+            <span>{category.name} {product?.categories.length === index+1 ? '' : ','}</span>
+          ))}
+        </div>
+        <!-- <div class="meta-item">
+          <strong>Tags:</strong> Antifaz de semillas, Búhos
+        </div> -->
+      </div>
+
+      <div class="product-description-panel">
+        <h2>Descripción de {product?.name}</h2>
+
+        <div set:html={product?.description}>
+
+        </div>
+        <!-- <h1>Rellenos de sacos térmicos en <strong>El Mundo del Saquito</strong></h1> -->
+        <!-- <p>
+          En <strong>El Mundo del Saquito</strong>, nos complace presentarles
+          los secretos detrás del relleno de nuestros saquitos térmicos. La base
+          de estos saquitos está compuesta por ingredientes naturales de alta
+          calidad que proporcionan confort y bienestar.
+        </p>
+        <p>
+          Nuestro relleno se compone principalmente de <strong
+            >trigo, lavanda y hierbas provenzales</strong
+          >. El trigo utilizado pasa por un riguroso proceso de limpieza que
+          incluye tres cribados para eliminar cualquier impureza. Además,
+          sometemos el trigo a una congelación durante entre 4 y 5 días para
+          optimizar su capacidad de absorción de calor.
+        </p>
+        <p>
+          El trigo no solo es eficiente en la absorción de calor, sino que
+          también es extremadamente <strong>flexible y cómodo</strong>, lo que
+          garantiza una experiencia agradable al usar nuestros saquitos. La
+          lavanda que incorporamos se presenta en forma de flor seca y se
+          utiliza ampliamente en <strong>aromaterapia</strong> debido a sus
+          propiedades relajantes.
+        </p>
+        <p>
+          Las <strong>hierbas provenzales</strong> que añadimos a nuestros
+          saquitos térmicos son una mezcla exquisita de <strong
+            >eucalipto, menta, tomillo, romero y salvia</strong
+          >. Estas hierbas, junto con la lavanda, son un testimonio de cómo la
+          naturaleza nos brinda sus maravillosas bondades para promover nuestro <strong
+            >bienestar natural</strong
+          >.
+        </p>
+        <p>
+          En <strong>El Mundo del Saquito</strong>, estamos comprometidos con
+          ofrecer productos de calidad que aprovechan los dones de la naturaleza
+          para proporcionar confort y relajación. Descubre el mundo de los
+          saquitos térmicos y experimenta la <strong
+            >calidez y el bienestar</strong
+          > que ofrecen.
+        </p> -->
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .product-overview {
+    display: grid;
+    grid-template-columns: 54% 46%;
+    gap: 16px 55px;
+    padding-top: 40px;
+  }
+
+  .product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: 1rem;
+  }
+
+  .product-price {
+    font-size: 1.6em;
+    color: #33a95a;
+    font-weight: 600;
+  }
+
+  .product-title {
+    margin: 0;
+    text-wrap: balance;
+    max-width: 550px;
+    line-height: 1.2;
+    font-size: 3.4em;
+    font-weight: 700;
+  }
+
+  .product-short-description {
+    font-size: 0.9em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  h1 {
+    font-size: 3em;
+  }
+
+  .product-meta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 3rem;
+  }
+
+  .product-description-panel {
+    margin-top: 3rem;
+    color: #483e4f;
+  }
+
+  .product-description-panel {
+    & h2, & h3, & h4, & h5, & h6 {
+      font-weight: 700;
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  @media(max-width:1600px){
+    .product-overview {
+        grid-template-columns: 1fr 1fr;
+        gap: 16px 36px;
+    }
+
+    .product-title {
+      font-size: 2.6em;
+    }
+  }
+
+  @media(max-width:1000px){
+    .product-overview {
+        grid-template-columns: 1fr 1.5fr;
+        gap: 16px 36px;
+    }
+
+    .product-details {
+      padding-top: 0;
+    }
+  }
+
+  @media(max-width:900px){
+    .product-overview {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  @media(max-width:500px){
+    .product-title {
+      font-size: 2em;
+    }
+  }
+</style>
+
+<style is:global>
+  .product-description-panel p {
+    margin-bottom: 16px;
+    text-wrap: balance;
+    margin-bottom: 1rem;
+    font-size: 0.9em;
+  }
+
+  .product-description-panel p:last-child {
+    margin-bottom: 0;
+  }
+</style>
