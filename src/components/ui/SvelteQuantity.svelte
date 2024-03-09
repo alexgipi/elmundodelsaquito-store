@@ -9,6 +9,8 @@ interface Props {
 const { min, max, name, value } = Astro.props;
 --- -->
 <script lang="ts">
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
 
     export let min = 0;
     export let max:number | null = null;
@@ -21,21 +23,27 @@ const { min, max, name, value } = Astro.props;
         
         if(max){
             if(number < max) {
-                value = number+1;
+                value = number + 1;
             }
         } else {
-            value = number+1;
+            value = number + 1;
         }
 
         inputEl.value = value;
+
+        dispatch('increment', { value })
     }
 
     function decrement(){
         let number = parseInt(inputEl.value);
+
         if(number > min) {
-            value = number-1;
+            value = number - 1;
         }
+
         inputEl.value = value;
+        
+        dispatch('decrement', { value })
     }
 
     function handleInput(){
@@ -70,7 +78,7 @@ const { min, max, name, value } = Astro.props;
     type="number"
     bind:this={inputEl}
     id="counter-input-example" 
-    class="pr-0 pl-0 flex-shrink-0 text-gray-900 dark:text-white border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" 
+    class="pr-0 pl-0 flex-shrink-0 text-current border-0 bg-transparent text-sm font-normal focus:outline-none focus:ring-0 max-w-[2.5rem] text-center" 
     placeholder="" 
     required
     >
