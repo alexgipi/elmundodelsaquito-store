@@ -252,6 +252,48 @@
 
 <section class="order-summary">
   <div class="row">
+    <form on:submit={handleSubmit} class="order-summary__form bg-white">
+      <div id="payment-message" />
+
+      <h5 class="title mb-4">Información de contacto</h5>
+
+      <div id="link-authentication-element" />
+
+      <h5 class="title mt-5 mb-4">Información de envío</h5>
+
+      <div id="address-element" />
+
+      <h5 class="title mt-5 mb-4">Detalles de pago</h5>
+
+      <div id="payment-element" />
+
+      <div id="error-message" />
+
+      <hr class="dark horizontal" />
+
+      <button class="btn btn-dark float-end mt-2 mb-0">
+        <svg
+          class="me-1"
+          width="14"
+          height="14"
+          viewBox="0 0 14 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M2.80039 2.80005C2.02719 2.80005 1.40039 3.42685 1.40039 4.20005V4.90005H12.6004V4.20005C12.6004 3.42685 11.9736 2.80005 11.2004 2.80005H2.80039Z"
+            fill="white"
+          />
+          <path
+            fill-rule="evenodd"
+            clip-rule="evenodd"
+            d="M12.6004 6.30005H1.40039V9.80005C1.40039 10.5733 2.02719 11.2 2.80039 11.2H11.2004C11.9736 11.2 12.6004 10.5733 12.6004 9.80005V6.30005ZM2.80039 9.10005C2.80039 8.71344 3.11379 8.40005 3.50039 8.40005H4.20039C4.58699 8.40005 4.90039 8.71344 4.90039 9.10005C4.90039 9.48666 4.58699 9.80005 4.20039 9.80005H3.50039C3.11379 9.80005 2.80039 9.48666 2.80039 9.10005ZM6.30039 8.40005C5.91379 8.40005 5.60039 8.71344 5.60039 9.10005C5.60039 9.48666 5.91379 9.80005 6.30039 9.80005H7.00039C7.387 9.80005 7.70039 9.48666 7.70039 9.10005C7.70039 8.71344 7.387 8.40005 7.00039 8.40005H6.30039Z"
+            fill="white"
+          />
+        </svg>
+        Proceed to payment
+      </button>
+    </form>
     <div class="order-summary__overview bg-dark bg-gradient rounded-end">
       <p class="text-white opacity-6 mb-0 text-end">Total</p>
       <h3 class="text-white mb-4 text-end">{formatCurrency($subtotal > 0 ? $subtotal + shippingCost : 0)}</h3>
@@ -346,30 +388,30 @@
           <form class="mt-5 grid gap-6">
             <div class="relative">
               <input class="peer hidden" id="radio_1" type="radio" checked name="shippingType"/>
-              <span class="peer-checked:border-[#a365ff] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-              <label class="peer-checked:border-2 peer-checked:border-[#a365ff] peer-checked:bg-[#cba6ff12] flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
+              <span class="peer-checked:border-[#9c75cf] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+              <label class="peer-checked:border-2 peer-checked:border-[#9c75cf] peer-checked:bg-[#cba6ff12] flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
                 <img 
                 class="w-[75px] object-contain" 
                 src="https://www.correosexpress.com/chx-portal62-theme/images/logo_correos_expressv1.png" alt="" 
                 style="filter:grayscale(100);"
                 />
                 <div class="ml-5">
-                  <span class="text-[#fff] peer-checked:text-[#a365ff] mt-2 font-semibold">Correos Expréss - 8,50 €</span>
+                  <span class="text-[#fff] peer-checked:text-[#9c75cf] mt-2 font-semibold">Correos Expréss - 8,50 €</span>
                   <p class="text-[#ffffff82] text-sm leading-6">Entrega: 2 - 4 Días</p>
                 </div>
               </label>
             </div>
             <!-- <div class="relative opacity-[0.3]">
               <input disabled class="peer hidden" id="radio_2" type="radio" name="shippingType"/>
-              <span class="peer-checked:border-[#a365ff] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
-              <label for="radio_2" class="peer-disabled:cursor-not-allowed peer-checked:border-2 peer-checked:border-[#a365ff] peer-checked:bg-[#cba6ff12] flex cursor-pointer select-none rounded-lg border border-gray-300 p-4">
+              <span class="peer-checked:border-[#9c75cf] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
+              <label for="radio_2" class="peer-disabled:cursor-not-allowed peer-checked:border-2 peer-checked:border-[#9c75cf] peer-checked:bg-[#cba6ff12] flex cursor-pointer select-none rounded-lg border border-gray-300 p-4">
                 <img 
                 class="w-[75px] object-contain" 
                 src="/envio-gratis.png" alt="" 
                 style="filter: invert(1) sepia(1) grayscale(1);"
                 />
                 <div class="ml-5">
-                  <span class="text-[#fff] peer-checked:text-[#a365ff] mt-2 font-semibold">Envío gratuito</span>
+                  <span class="text-[#fff] peer-checked:text-[#9c75cf] mt-2 font-semibold">Envío gratuito</span>
                   <p class="text-[#ffffff82] text-sm leading-6">Faltan 25,50 € para activar el envío gratuito</p>
                 </div>
               </label>
@@ -385,48 +427,6 @@
         </li>
       </ul>
     </div>
-    <form on:submit={handleSubmit} class="order-summary__form bg-white">
-      <div id="payment-message" />
-
-      <h5 class="title mb-4">Información de contacto</h5>
-
-      <div id="link-authentication-element" />
-
-      <h5 class="title mt-5 mb-4">Información de envío</h5>
-
-      <div id="address-element" />
-
-      <h5 class="title mt-5 mb-4">Detalles de pago</h5>
-
-      <div id="payment-element" />
-
-      <div id="error-message" />
-
-      <hr class="dark horizontal" />
-
-      <button class="btn btn-dark float-end mt-2 mb-0">
-        <svg
-          class="me-1"
-          width="14"
-          height="14"
-          viewBox="0 0 14 14"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2.80039 2.80005C2.02719 2.80005 1.40039 3.42685 1.40039 4.20005V4.90005H12.6004V4.20005C12.6004 3.42685 11.9736 2.80005 11.2004 2.80005H2.80039Z"
-            fill="white"
-          />
-          <path
-            fill-rule="evenodd"
-            clip-rule="evenodd"
-            d="M12.6004 6.30005H1.40039V9.80005C1.40039 10.5733 2.02719 11.2 2.80039 11.2H11.2004C11.9736 11.2 12.6004 10.5733 12.6004 9.80005V6.30005ZM2.80039 9.10005C2.80039 8.71344 3.11379 8.40005 3.50039 8.40005H4.20039C4.58699 8.40005 4.90039 8.71344 4.90039 9.10005C4.90039 9.48666 4.58699 9.80005 4.20039 9.80005H3.50039C3.11379 9.80005 2.80039 9.48666 2.80039 9.10005ZM6.30039 8.40005C5.91379 8.40005 5.60039 8.71344 5.60039 9.10005C5.60039 9.48666 5.91379 9.80005 6.30039 9.80005H7.00039C7.387 9.80005 7.70039 9.48666 7.70039 9.10005C7.70039 8.71344 7.387 8.40005 7.00039 8.40005H6.30039Z"
-            fill="white"
-          />
-        </svg>
-        Proceed to payment
-      </button>
-    </form>
   </div>
 </section>
 
