@@ -1,13 +1,12 @@
 <script lang="ts">
   import { nanoid } from "nanoid";
-  import { cartItems, totalItems, subtotal } from "../cartStore";
+  import { cartItems, subtotal, addCartItem, removeCartItem } from "../cartStore";
   import { formatCurrency } from "../utils";
   import { loadStripe } from "@stripe/stripe-js";
   import { API_URL } from "../services/ecommerce";
+  import SvelteQuantity from "./ui/SvelteQuantity.svelte";
 
   export let identity: any = null;
-
-  const subtotalFormatted = formatCurrency($subtotal);
 
   let elements: any;
   let stripe: any;
@@ -17,11 +16,7 @@
   let name: string;
   let shippingType: string = "Correos Express (24h - 48h)";
   let shippingCost = 8.5;
-  let total = 0;
 
-  if ($subtotal > 0) {
-    total = $subtotal + shippingCost;
-  }
 
   initialize();
   // Fetches a payment intent and captures the client secret
@@ -65,7 +60,7 @@
 
     const options = {
       mode: "payment",
-      amount: total*100,
+      amount: ($subtotal + shippingCost) * 100,
       currency: "eur",
       paymentMethodCreation: "manual",
       // Fully customizable with appearance API.
@@ -180,7 +175,7 @@
         shippingCost,
         shippingType,
         subtotal: $subtotal,
-        total: total,
+        total: $subtotal + shippingCost,
       }),
     });
 
@@ -229,6 +224,17 @@
       // No actions needed, show success message
     }
   };
+
+
+  function onIncrement(event:any, itemKey:any){
+    let item = $cartItems[itemKey];
+    addCartItem(item)
+  }
+
+  function onDecrement(event:any, itemKey:any){
+    removeCartItem(itemKey)
+  }
+
   // ------- UI helpers -------
 
   function showMessage(messageText: string) {
@@ -248,10 +254,10 @@
   <div class="row">
     <div class="order-summary__overview bg-dark bg-gradient rounded-end">
       <p class="text-white opacity-6 mb-0 text-end">Total</p>
-      <h3 class="text-white mb-4 text-end">{formatCurrency(total)}</h3>
+      <h3 class="text-white mb-4 text-end">{formatCurrency($subtotal > 0 ? $subtotal + shippingCost : 0)}</h3>
 
       {#if Object.values($cartItems).length}
-        {#each Object.values($cartItems) as cartItem}
+        {#each Object.entries($cartItems) as [key, cartItem]}
           <div class="order-summary__item d-flex mb-4">
             <img
               width="120"
@@ -267,10 +273,13 @@
               </p>
               <p class="mt-1 mb-1 text-sm text-white opacity-6">Small</p>
             </div>
-            <div class="w-10 text-end">
+            <div class="text-end">
               <p class="text-white mb-0">
                 {formatCurrency(cartItem.price * cartItem.quantity)}
               </p>
+              <div class="flex justify-center">
+                <SvelteQuantity on:decrement={(e) => onDecrement(e, key)} on:increment={(e) => onIncrement(e, key)} value={cartItem.quantity}></SvelteQuantity>
+              </div>
             </div>
           </div>
         {/each}
@@ -292,7 +301,7 @@
           <div class="d-flex justify-content-between">
             <p class="opacity-8 text-white">Subtotal</p>
             <p class="fw-bold opacity-8 text-white">
-              {subtotalFormatted}
+              {formatCurrency($subtotal)}
             </p>
           </div>
         </li>
@@ -371,7 +380,7 @@
         <li class="mt-4">
           <div class="d-flex justify-content-between">
             <h4 class="text-white">Total</h4>
-            <h4 class="text-white">{formatCurrency(total)}</h4>
+            <h4 class="text-white">{formatCurrency($subtotal > 0 ? $subtotal + shippingCost : 0)}</h4>
           </div>
         </li>
       </ul>

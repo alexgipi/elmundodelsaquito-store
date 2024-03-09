@@ -1,9 +1,19 @@
 <script lang="ts">
-  import { isCartOpen, cartItems, totalItems, subtotal } from "../cartStore";
+  import { isCartOpen, cartItems, totalItems, subtotal, addCartItem, removeCartItem } from "../cartStore";
   import { formatCurrency } from "../utils";
+  import SvelteQuantity from "./ui/SvelteQuantity.svelte";
   
   function toggleCart() {
     isCartOpen.set(!$isCartOpen);
+  }
+
+  function onIncrement(event:any, itemKey:any){
+    let item = $cartItems[itemKey];
+    addCartItem(item)
+  }
+
+  function onDecrement(event:any, itemKey:any){
+    removeCartItem(itemKey)
   }
 </script>
 
@@ -20,7 +30,7 @@
 
   {#if Object.values($cartItems).length}
     <div class="cart-items">
-      {#each Object.values($cartItems) as cartItem}
+      {#each Object.entries($cartItems) as [key, cartItem]}
         <li class="cart-item">
           <div class="cart-item__info">
             <img src={cartItem.imageSrc} alt={cartItem.name} />
@@ -28,19 +38,17 @@
               <h4>{cartItem.name}</h4>
               <small>
                 {#each cartItem.selectedAttributes as attribute}
-                  <span>
-                    {attribute?.optionSelected}
-                  </span>
+                  <span>{attribute?.optionSelected}</span>
                 {/each}
               </small>
             </div>            
           </div>
           <div class="cart-item__details">
-            <p class="quantity">
-              {cartItem.quantity} x <span class="price">{formatCurrency(cartItem.price)}</span>
+            <p class="quantity text-center">
+              <span class="price">{formatCurrency(cartItem.quantity * cartItem.price)}</span>
             </p>
+            <SvelteQuantity on:decrement={(e) => onDecrement(e, key)} on:increment={(e) => onIncrement(e, key)} value={cartItem.quantity}></SvelteQuantity>
           </div>
-          
         </li>
       {/each}
       <footer>
@@ -170,10 +178,11 @@
   }
 
   .cart-item h4 {
-    font-size: 0.9em;
+    font-size: 0.8em;
     margin: 0;
     max-width: 195px;
     text-wrap: balance;
+    font-weight: 500;
   }
 
   .cart-item .quantity {
