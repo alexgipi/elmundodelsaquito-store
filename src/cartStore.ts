@@ -35,11 +35,39 @@ export function addCartItem({ id, name, imageSrc, price, selectedAttributes }: I
     };
 
     cartItems.setKey(key, updateItemData);
-    console.log(cartItems.get());
   } else {
     const newItemData = { id, name, imageSrc, price, quantity, selectedAttributes: newSelectedAttributes };
     cartItems.setKey(key, newItemData);
   }
+}
+
+
+export function removeCartItem(key:any) {
+  const existingEntry = cartItems.get()[key];
+
+  if (!existingEntry) {
+    // Si el elemento no existe en el carrito, no hay nada que hacer
+    return;
+  }
+
+  const updatedQuantity = existingEntry.quantity - 1;
+
+  if (updatedQuantity <= 0) {
+    // Si la cantidad actual es menor o igual a cero, eliminamos el elemento del carrito
+    cartItems.setKey(key, undefined!)
+  } else {
+    // Actualizamos la cantidad y el subtotal
+    const updatedItemData = {
+      ...existingEntry,
+      quantity: updatedQuantity,
+    };
+
+    cartItems.setKey(key, updatedItemData);
+  }
+
+  // Actualizamos el total de elementos y el subtotal
+  totalItems.set(totalItems.get() - 1);
+  subtotal.set(subtotal.get() - existingEntry.price);
 }
 
 function getSelectedOptionsString(selectedAttributes:any) {
