@@ -141,12 +141,14 @@
     position: absolute;
     width: 100%;
     max-width: 385px;
+    min-width: 385px;
     right: 0;
     top: 50px;
     border-radius: 12px;
     overflow: hidden;
     visibility: hidden;
     opacity: 0;
+    
   }
 
   .cart-item {
@@ -235,5 +237,12 @@
     background-color: #a6a6a6;
     border-radius: 13px;
     border: 3px solid #ebebeb;
+  }
+
+  @media (max-width: 500px){
+    
+    .cart-items {
+      min-width: auto;
+    }
   }
 </style>

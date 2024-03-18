@@ -349,11 +349,11 @@
               <span class="peer-checked:border-[#9c75cf] absolute right-4 top-1/2 box-content block h-3 w-3 -translate-y-1/2 rounded-full border-8 border-gray-300 bg-white"></span>
               <label class="peer-checked:border-2 peer-checked:border-[#9c75cf] peer-checked:bg-[#cba6ff12] flex cursor-pointer select-none rounded-lg border border-gray-300 p-4" for="radio_1">
                 <img 
-                class="w-[75px] object-contain" 
+                class="shipping-logo w-[75px] object-contain" 
                 src="https://www.correosexpress.com/chx-portal62-theme/images/logo_correos_expressv1.png" alt="" 
                 style="filter:grayscale(100);"
                 />
-                <div class="ml-5">
+                <div class="ml-5 shipping-details">
                   <span class="text-[#fff] peer-checked:text-[#9c75cf] mt-2 font-semibold">Correos Expréss - 8,50 €</span>
                   <p class="text-[#ffffff82] text-sm leading-6">Entrega: 2 - 4 Días</p>
                 </div>
@@ -431,4 +431,28 @@
 </section>
 
 <style>
+  .order-summary .row {
+    flex-wrap: wrap;
+  }
+
+  @media(max-width: 1000px){
+    .order-summary .row {
+      flex-direction: column;
+    }
+
+    .order-summary__form {
+      padding-inline:  0;
+    }
+  }
+
+  @media(max-width: 550px){
+    .shipping-logo {
+      display: none;
+      
+    }
+
+    .shipping-details {
+      margin-left: 0;
+    }
+  }
 </style>
