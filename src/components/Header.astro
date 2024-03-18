@@ -84,10 +84,6 @@ async function getMainNav(){
       <input placeholder="Buscar productos..." />
     </div> -->
     <div class="header__right">
-      <ToggleCart client:load/>
-      
-      
-
       { !identity &&
         <a data-astro-prefetch="load" href="/login" id="dropdownInformationButton" class="text-white whitespace-nowrap bg-[#481f7f] hover:bg-[--primary-color] focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
           Iniciar sesión
@@ -123,6 +119,9 @@ async function getMainNav(){
           </div>  
         </Dropdown>
       }
+
+      <ToggleCart client:load/>
+      
     </div>
   </div>
 </header>
@@ -176,6 +175,7 @@ async function getMainNav(){
     display: flex;
     align-items: center;
     gap: 12px;
+    position: relative;
   }
 
   .header-logo {
@@ -275,6 +275,16 @@ async function getMainNav(){
 
     .main-nav-items {
       max-width: 100px;
+    }
+
+    header .container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header__right {
+        width: 100%;
+        justify-content: space-between;
     }
   }
   

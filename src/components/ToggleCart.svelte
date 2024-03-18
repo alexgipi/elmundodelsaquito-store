@@ -63,9 +63,6 @@
 </div>
 
 <style>
-  .cart-panel {
-    position: relative;
-  }
 
   .toggle-cart {
     display: flex;
@@ -142,7 +139,8 @@
     background: #ffffff;
     backdrop-filter: hue-rotate(53deg);
     position: absolute;
-    width: 385px;
+    width: 100%;
+    max-width: 385px;
     right: 0;
     top: 50px;
     border-radius: 12px;

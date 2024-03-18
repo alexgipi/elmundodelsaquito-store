@@ -47,12 +47,13 @@ function handleAttributeChange(e:any, attribute:any){
     <SvelteQuantity bind:value={qty} min={1} max={100} name="quantity"/>
     
     {#if product?.attributes?.length > 0 }
-        <div class="flex gap-2 mt-2">
+        <div class="inline-flex flex-col gap-2 mt-2">
             
             {#each product.attributes as attribute, attributeIndex}
                 {#if attribute.options}
+                <label for="">{attribute.name}:</label>
                     <select on:change={(e) => handleAttributeChange(e, attribute) } name={attribute.slug} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option selected disabled>{attribute.name}</option>
+                        <option selected disabled>{attribute.label || attribute.name || 'Selecciona una opción'}</option>
                         
                         {#each (attribute.options?.split(",")) as option, optionIndex}
                         <option value={option}>{option}</option>
