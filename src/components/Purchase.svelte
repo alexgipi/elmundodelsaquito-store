@@ -44,10 +44,8 @@ function handleAttributeChange(e:any, attribute:any){
 </script>
 
 <div>
-    <SvelteQuantity bind:value={qty} min={1} max={100} name="quantity"/>
-    
     {#if product?.attributes?.length > 0 }
-        <div class="inline-flex flex-col gap-2 mt-2">
+        <div class="inline-flex flex-col gap-2 mt-2 mb-3">
             
             {#each product.attributes as attribute, attributeIndex}
                 {#if attribute.options}
@@ -67,6 +65,8 @@ function handleAttributeChange(e:any, attribute:any){
         
     {/if}
 
+    <SvelteQuantity bind:value={qty} min={1} max={100} name="quantity"/>
+    
     <div class="flex product-actions gap-2.5 mt-4">
         <AddToCartButton selectedAttributesOptions={selectedAttributesOptions} disabledProp={false} product={product} quantity={qty}></AddToCartButton>
     </div>
