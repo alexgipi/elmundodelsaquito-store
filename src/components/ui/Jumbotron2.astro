@@ -1,24 +1,48 @@
+---
+import { API_URL, UPLOADS_URL } from "../../services/ecommerce"
 
+const { slider } = Astro.props;
 
-<section class="jumbotron-hero bg-center bg-no-repeat">
-    <div class="container py-4 flex-col">
-        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">Sacos térmicos de semillas</h1>
-        
-        <p class="mb-8 max-w-2xl font-normal text-gray-300 lg:text-xl">Sumérgete en el abrazo cálido de nuestros sacos térmicos, con una mezcla única de semillas, flores y esencias de lavanda. Diseñados para aliviar dolores musculares y artículares, calmar el frío y brindar una experiencia terapéutica única.</p>
-        
-        <div class="flex gap-3 flex-col sm:flex-row">
-            <a href="/sacos-termicos" class="inline-flex justify-center items-center py-3 px-5 text-base font-medium text-center text-white border border-transparent rounded-lg bg-[--primary-color] focus:ring-4 focus:ring-violet-500 dark:focus:ring-blue-900">
-                Sacos térmicos
-                <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
-                </svg>
-            </a>
-            <a href="#" class="inline-flex justify-center hover:text-gray-900 items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg border border-white hover:bg-gray-100 focus:ring-4 focus:ring-gray-400">
-                Leer más
-            </a>  
-        </div>
-    </div>
-</section>
+console.log(API_URL)
+
+slider.slider_items = [slider.slider_items[0]]
+
+console.log(slider)
+---
+
+{
+    slider.slider_items.map((item:any) => (
+        <section 
+        class="jumbotron-hero bg-center bg-no-repeat" 
+        style={item.bgImage?.mimetype && item.bgImage?.mimetype.split("/")[0] === "image" ? `background-image: url(${UPLOADS_URL}${item.bgImage?.file})` : ""}
+        >
+            {item.bgImage?.mimetype && item.bgImage?.mimetype.split("/")[0] === "video" &&
+                <video src={`${UPLOADS_URL}${item.bgImage?.file}`} class="jumbotron-hero__bg-video" autoplay muted loop></video>
+            }
+            <div class="container py-4 flex-col">
+                <h1 class="jumbotron-title mb-4 text-4xl font-extrabold tracking-tight leading-none text-white md:text-5xl lg:text-6xl">
+                    {item.title}
+                </h1>
+                
+                <div class="jumbotron-content" set:html={item.content}>
+
+                </div>
+                
+                <div class="flex gap-3 flex-col sm:flex-row">
+                    { item.actionButtons.map((button:any) => (
+                        <a href={button.link} class={"jumbotron-button text-base font-medium rounded-lg" + ` jumbotron-button--${button?.buttonClass || "primary"}`}>
+                            {button.text}
+                            <svg class="w-3.5 h-3.5 ms-2 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+                            </svg>
+                        </a>
+                      ))
+                    }
+                </div>
+            </div>
+        </section>
+    ))
+}
 
 
 <style>
@@ -27,8 +51,8 @@
         min-height: calc(75vh - 100px);
         align-items: center;
         display: flex;
-        background-image: url('https://images.unsplash.com/photo-1600759487717-62bbb608106e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
         position: relative;
+        background-size: cover;
 
         &::before {
             content: "";
@@ -37,7 +61,60 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: #1c0b32d6;
+            background-color: #1e0d34ab;
         }
+
+    }
+
+    .jumbotron-hero__bg-video {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+
+    .jumbotron-title {
+        text-wrap: balance;
+        line-height: 1.2;
+        max-width: 1140px;
+    }
+
+
+    .jumbotron-button {
+        padding: 14px 28px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        border-radius: 0.75rem;
+    }
+
+    .jumbotron-button--primary {
+        background: #503d70a3;
+        backdrop-filter: blur(4px);
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .jumbotron-button--secondary {
+        background: #fff;
+        color: #231534;
+        font-weight: 600;
+        padding: 16px 32px;
+    }
+
+</style>
+
+<style is:global>
+    .jumbotron-content p {
+        font-size: 17px;
+        opacity: 0.85;
+        color: #fff;
+        max-width: 740px;
+        margin-bottom: 2rem;
+        text-wrap: pretty;
     }
 </style>

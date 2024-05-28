@@ -4,7 +4,7 @@ import Jumbotron from "../components/Jumbotron.astro";
 import CategoryGrid from "../components/CategoryGrid.astro";
 import ProductGrid from "../components/ProductGrid.astro";
 
-import { getCategoryProducts } from "../services/ecommerce";
+import { API_URL, getCategoryProducts } from "../services/ecommerce";
 import Jumbotron2 from "../components/ui/Jumbotron2.astro";
 const gridLimit:number = 5;
 
@@ -13,8 +13,32 @@ const sacosTermicos = await getCategoryProducts('sacos-termicos', {limit: gridLi
 const antifacesRelajantes = await getCategoryProducts('antifaces-relajantes', {limit: gridLimit});
 const sacosTermicosMedianos = await getCategoryProducts('sacos-termicos-medianos', {limit: gridLimit});
 
-const metaTitle = 'Los mejores sacos térmicos de semillas para aplicar frío o calor';
-const metaDescription = 'Tu fuente de alivio del dolor: descubre nuestros sacos térmicos de semillas, antifaces y zapatillas térmicas. Encuentra la solución natural para calmar tus dolores y disfruta de la comodidad que necesitas. Bienvenido a tu refugio del bienestar.';
+let metaTitle = 'Los mejores sacos térmicos de semillas para aplicar frío o calor';
+let metaDescription = 'Tu fuente de alivio del dolor: descubre nuestros sacos térmicos de semillas, antifaces y zapatillas térmicas. Encuentra la solución natural para calmar tus dolores y disfruta de la comodidad que necesitas.';
+
+async function getHomePage(){
+    let response = await fetch(`${API_URL}/globals/home-page`)
+    let data = await response.json()
+    return data
+}
+
+let homePage = await getHomePage();
+let slider = null;
+
+if(homePage._id){
+  if(homePage?.seo?.title){
+    metaTitle = homePage.seo.title
+  }
+
+  if(homePage?.seo?.description){
+    metaDescription = homePage.seo.Description
+  }
+
+  if(homePage.slider?._id){
+      slider = homePage.slider
+  }
+}
+
 ---
 
 <Layout title={metaTitle} description={metaDescription}>
@@ -28,7 +52,7 @@ const metaDescription = 'Tu fuente de alivio del dolor: descubre nuestros sacos 
       bgUrl="https://elmundodelsaquito.es/wp-content/uploads/sites/4/2023/09/photo-1568842068488-4c5d327367ea-scaled.webp"
     /> -->
 
-    <Jumbotron2></Jumbotron2>
+    <Jumbotron2 {slider}></Jumbotron2>
 
     <div class="container flex-dir-column">
       <section>
