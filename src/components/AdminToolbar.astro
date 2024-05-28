@@ -16,11 +16,12 @@ if(processingOrders){
 async function getProcessingOrders(){
     try {
     const res = await fetch(
-        `${API_URL}/orders/status/processing`,
+        `${API_URL}/orders/status/pending`,
         {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": `Bearer ${identity.token}`
             }
         }
     );
@@ -39,7 +40,7 @@ async function getProcessingOrders(){
 
         <div class="admin-nav-left flex flex-1">
             <a class="admin-nav-logo text-xl flex-1 font-bold font-heading" target="_blank">
-                <span class="inline-flex transform scale-x-[-1]">F</span>lexee CMS
+                <span class="inline-flex transform scale-x-[-1]">F</span>lexi CMS
             </a>
         </div>
 
@@ -59,7 +60,7 @@ async function getProcessingOrders(){
 
             <li class="flex"> 
                 <a target="_blank" class="hover:text-gray-200 flex items-center gap-2 cursor-pointer" href={ADMIN_URL + "/orders"}>
-                    Pedidos <span class="admin-badge">{ordersCounter}</span>
+                    Pedidos <span class="admin-badge">{ordersCounter || 0}</span>
                 </a>
             </li>
 
@@ -85,7 +86,7 @@ async function getProcessingOrders(){
                 </ul>
             </li>
 
-            <li class="flex">
+            <!-- <li class="flex">
                 <a class="hover:text-gray-200 flex items-center gap-2 cursor-pointer" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
                         <path d="M0 0h24v24H0V0z" fill="none"></path>
@@ -95,9 +96,9 @@ async function getProcessingOrders(){
                     </svg>
                     Personalizar
                 </a>
-            </li>
+            </li> -->
 
-            <li class="flex">
+            <!-- <li class="flex">
                 <a class="hover:text-gray-200 flex items-center gap-2 cursor-pointer" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="currentColor">
                         <rect fill="none" height="24" width="24"></rect>
@@ -110,7 +111,7 @@ async function getProcessingOrders(){
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"></path>
                     </svg>
                 </a>
-            </li>
+            </li> -->
 
             <li class="flex">
                 <a class="hover:text-gray-200 flex items-center gap-2 cursor-pointer" target="_blank">
