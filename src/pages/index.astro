@@ -8,9 +8,9 @@ import { API_URL, getCategoryProducts } from "../services/ecommerce";
 import Jumbotron2 from "../components/ui/Jumbotron2.astro";
 const gridLimit:number = 5;
 
-const zapatillasTermicas = await getCategoryProducts('zapatillas-termicas', {limit: gridLimit});
-const sacosTermicos = await getCategoryProducts('sacos-termicos', {limit: gridLimit});
-const antifacesRelajantes = await getCategoryProducts('antifaces-relajantes', {limit: gridLimit});
+const zapatillasTermicas = await getCategoryProducts('zapatillas-termicas-de-semillas', {limit: gridLimit});
+const sacosTermicos = await getCategoryProducts('sacos-termicos-de-semillas', {limit: gridLimit});
+const antifacesRelajantes = await getCategoryProducts('antifaces-relajantes-de-semillas', {limit: gridLimit});
 const sacosTermicosMedianos = await getCategoryProducts('sacos-termicos-medianos', {limit: gridLimit});
 
 let metaTitle = 'Los mejores sacos térmicos de semillas para aplicar frío o calor';
@@ -73,7 +73,7 @@ if(homePage._id){
           <h2 class="d-block-title">Zapatillas térmicas de semillas</h2>
           <a
             class="text-dark font-weight-bold"
-            href="/zapatillas-termicas"
+            href="/zapatillas-termicas-de-semillas"
             style="text-decoration: none; font-weight: 500; color: #757575"
             >Ver todas las zapatillas &gt;</a
           >
@@ -87,7 +87,7 @@ if(homePage._id){
           <h2 class="d-block-title">Sacos térmicos de semillas</h2>
           <a
             class="text-dark font-weight-bold"
-            href="/sacos-termicos"
+            href="/sacos-termicos-de-semillas"
             style="text-decoration: none; font-weight: 500; color: #757575"
             >Ver todos los sacos térmicos &gt;</a
           >
@@ -101,7 +101,7 @@ if(homePage._id){
           <h2 class="d-block-title">Antifaces relajantes de semillas</h2>
           <a
             class="text-dark font-weight-bold"
-            href="/antifaces-relajantes"
+            href="/antifaces-relajantes-de-semillas"
             style="text-decoration: none; font-weight: 500; color: #757575"
             >Ver todos los antifaces &gt;</a
           >
