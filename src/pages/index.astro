@@ -8,11 +8,6 @@ import { API_URL, getCategoryProducts } from "../services/ecommerce";
 import Jumbotron2 from "../components/ui/Jumbotron2.astro";
 const gridLimit:number = 5;
 
-const zapatillasTermicas = await getCategoryProducts('zapatillas-termicas-de-semillas', {limit: gridLimit});
-const sacosTermicos = await getCategoryProducts('sacos-termicos-de-semillas', {limit: gridLimit});
-const antifacesRelajantes = await getCategoryProducts('antifaces-relajantes-de-semillas', {limit: gridLimit});
-const sacosTermicosMedianos = await getCategoryProducts('sacos-termicos-medianos', {limit: gridLimit});
-
 let metaTitle = 'Los mejores sacos térmicos de semillas para aplicar frío o calor';
 let metaDescription = 'Tu fuente de alivio del dolor: descubre nuestros sacos térmicos de semillas, antifaces y zapatillas térmicas. Encuentra la solución natural para calmar tus dolores y disfruta de la comodidad que necesitas.';
 
@@ -24,19 +19,28 @@ async function getHomePage(){
 
 let homePage = await getHomePage();
 let slider = null;
+let sections = null;
 
 if(homePage._id){
-  if(homePage?.seo?.title){
+  if(homePage.seo?.title){
     metaTitle = homePage.seo.title
   }
 
-  if(homePage?.seo?.description){
+  if(homePage.seo?.description){
     metaDescription = homePage.seo.Description
   }
 
   if(homePage.slider?._id){
       slider = homePage.slider
   }
+
+  if(homePage.sections){
+    sections = homePage.sections
+  }
+}
+
+async function getProducts(category:string, limit:number) {
+  return await getCategoryProducts(category, { limit });
 }
 
 ---
@@ -55,61 +59,43 @@ if(homePage._id){
     <Jumbotron2 {slider}></Jumbotron2>
 
     <div class="container flex-dir-column">
-      <section>
-        <div class="d-block">
-          <h2 class="d-block-title">Nuestros productos</h2>
-          <span
-            class="font-weight-bold"
-            style="text-decoration: none; font-weight: 500; color: #757575">
-            Encuentra productos de las siguientes categorías:
-		      </span>
-        </div>
 
-        <CategoryGrid></CategoryGrid>
-      </section>
+      {sections?.map(async (section:any) => {
+        let products = [];
 
-      <section>
-        <div class="d-block">
-          <h2 class="d-block-title">Zapatillas térmicas de semillas</h2>
-          <a
-            class="text-dark font-weight-bold"
-            href="/zapatillas-termicas-de-semillas"
-            style="text-decoration: none; font-weight: 500; color: #757575"
-            >Ver todas las zapatillas &gt;</a
-          >
-        </div>
+        if (section.get_docs.collectionType === "products") {
+          products = await getProducts(section?.get_docs?.['product-categories'], gridLimit);
+        }
 
-		    <ProductGrid class={'transparent-pictures'} products={zapatillasTermicas}></ProductGrid>
-      </section>
+        return (
+          <section>
+            <div class="d-block">
+              <h2 class="d-block-title">{section.title}</h2>
+              {section.subtitle_link ?
+                <a href={section.subtitle_link}
+                  class="font-weight-bold"
+                  style="text-decoration: none; font-weight: 500; color: #757575">
+                  {section.subtitle}
+                </a>
+                : 
+                <span
+                  class="font-weight-bold"
+                  style="text-decoration: none; font-weight: 500; color: #757575">
+                  {section.subtitle}
+                </span>
+              }
+            </div>
 
-      <section>
-        <div class="d-block">
-          <h2 class="d-block-title">Sacos térmicos de semillas</h2>
-          <a
-            class="text-dark font-weight-bold"
-            href="/sacos-termicos-de-semillas"
-            style="text-decoration: none; font-weight: 500; color: #757575"
-            >Ver todos los sacos térmicos &gt;</a
-          >
-        </div>
+            { section.get_docs.collectionType === "product-categories" &&
+              <CategoryGrid></CategoryGrid>            
+            }
 
-		    <ProductGrid products={sacosTermicos}></ProductGrid>
-      </section>
-
-      <section>
-        <div class="d-block">
-          <h2 class="d-block-title">Antifaces relajantes de semillas</h2>
-          <a
-            class="text-dark font-weight-bold"
-            href="/antifaces-relajantes-de-semillas"
-            style="text-decoration: none; font-weight: 500; color: #757575"
-            >Ver todos los antifaces &gt;</a
-          >
-        </div>
-
-		    <ProductGrid products={antifacesRelajantes}></ProductGrid>
-      </section>
-
+            { section.get_docs.collectionType === "products" &&
+              <ProductGrid products={products}></ProductGrid>
+            }
+          </section>
+        );
+      })}
 
     </div>
   </main>
