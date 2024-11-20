@@ -14,7 +14,7 @@
   let email: string;
   let address: object;
   let name: string;
-  let shippingType: string = "Correos Express (24h - 48h)";
+  let shippingType: string = "Correos (48h - 72h)";
   let shippingCost = 8.5;
 
 
@@ -354,7 +354,7 @@
                 style="filter:grayscale(100);"
                 />
                 <div class="ml-5 shipping-details">
-                  <span class="text-[#fff] peer-checked:text-[#9c75cf] mt-2 font-semibold">Correos Expréss - 8,50 €</span>
+                  <span class="text-[#fff] peer-checked:text-[#9c75cf] mt-2 font-semibold">Correos - 8,50 €</span>
                   <p class="text-[#ffffff82] text-sm leading-6">Entrega: 2 - 4 Días</p>
                 </div>
               </label>
