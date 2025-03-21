@@ -31,14 +31,25 @@ const { title } = Astro.props;
   <body>
     <div class="layout layout--aside-cart">
       <div class="layout-content">
-        <Header />
+        <!-- <Header />
         <slot />
-        <Footer />
+        <Footer /> -->
+        <p class="alert">Elmundodelsaquito.es se encuentra en mantenimiento, disculpe las molestias.</p>
       </div>
     </div>
   </body>
 
   <style is:global>
+    .alert {
+      color: red;
+      font-size: 1.5em;
+      text-align: center;
+      padding: 1rem;
+      height: 100dvh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
     :root {
       --primary-color: #3d1a6c;
       --accent: 136, 58, 234;
